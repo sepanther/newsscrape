@@ -1,5 +1,23 @@
+<div class="jumbotron text-center">
+  <div class="overlay">
+  </div>
+  <div class="background-image">
+  </div>
+  <div class="caption">
+    <h1>Mongo Scraper</h1>
+    <p>New York Times Edition</p>
+  </div>
+</div>
+
 {{#each article}}
-  <p>Title: {{title}}</p>
-  <p>Link: {{link}}</p>
-  <hr>
+<div class="container-fluid article-container">
+  <div data-_id="5c8846ebe2f1040014273a02" class="card">
+    <div class="card-header">
+      <h3>
+        <a class="article-link" target="_blank" rel="noopener noreferrer" href="{{link}}">{{title}}</a>
+        <a class="btn btn-success save">Save Article</a>
+      </h3>
+    </div>
+  </div>
+   </div>
 {{/each}}

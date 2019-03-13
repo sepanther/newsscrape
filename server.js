@@ -21,12 +21,19 @@ app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParse: true });
+mongoose.connect("mongodb://localhost/unit18Populater");
 
 var articles = []
 
 app.get("/", function(req, res) {
-    res.render("articles", { article: articles });
+  db.Article.find({}, function(err, found) {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      res.render("articles", { article: found })
+    }
+  })
 })
 
 app.get("/scrape", function(req, res) {
@@ -49,17 +56,16 @@ app.get("/scrape", function(req, res) {
             db.Article.create(result)
             .then(function(dbArticle) {
                 // View the added result in the console
-                console.log(dbArticle);
                 articles.push(dbArticle);
             })
             .catch(function(err) {
                 // If an error occurred, log it
                 console.log(err);
             });
-        });
-    
-        // Send a message to the client
-        res.send("Scrape Complete");
+            
+        })
+  
+        res.redirect("/");    
     })
 })
 
@@ -75,6 +81,19 @@ app.get("/articles", function(req, res) {
       }
     })
   });
+
+  // Route for getting all Articles from the db
+app.get("/saved", function(req, res) {
+  // TODO: Finish the route so it grabs all of the articles
+  db.Article.find({}, function(err, found) {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      res.json(found);
+    }
+  })
+});
 
 // Start the server
 app.listen(PORT, function() {
