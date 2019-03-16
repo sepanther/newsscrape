@@ -8,6 +8,10 @@ var cheerio = require("cheerio");
 var db = require("./models");
 
 var PORT = process.env.PORT || 3000;
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+ }
 // Initialize Express
 var app = express();
 
