@@ -9,11 +9,12 @@ var db = require("./models");
 
 var PORT = process.env.PORT || 3000;
 
+// Initialize Express
+var app = express();
+
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
  }
-// Initialize Express
-var app = express();
 
 // Set Handlebars as the default templating engine.
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
